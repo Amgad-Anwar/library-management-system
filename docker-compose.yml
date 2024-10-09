@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: library_management_app
+    ports:
+      - '3000:3000'
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_NAME=bosta_library_management_system
+      - JWT_SECRET=your_jwt_secret_key
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+    networks:
+      - library-network
+
+  db:
+    image: mysql:8
+    container_name: library_management_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bosta_library_management_system
+    ports:
+      - '3306:3306'
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d # execute the SQL files in db folder
+    networks:
+      - library-network
+
+volumes:
+  db-data:
+
+networks:
+  library-network:
