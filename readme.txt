@@ -17,7 +17,7 @@ To run this project, you'll need:
 Installation
 Step 1: Clone the repository
 
-    git clone https://github.com/amgad-anwar/library-management-system.git
+    git clone https://github.com/Amgad-Anwar/library-management-system.git
     cd library-management-system
 
 Step 2: Install dependencies
