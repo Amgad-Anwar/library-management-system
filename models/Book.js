@@ -14,6 +14,7 @@ class Book {
         const search = `%${searchTerm}%`;
         db.query(query, [search, search, search], callback);
     }
+    
 
     static addBook(bookData, callback) {
         const query = `INSERT INTO books (title, author, isbn, available_quantity, shelf_location) VALUES (?, ?, ?, ?, ?)`;

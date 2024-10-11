@@ -3,7 +3,7 @@ const router = express.Router();
 const borrowController = require('../controllers/borrowController');
 
 router.post('/', borrowController.borrowBook);
-router.put('/return/:borrowerId/:bookId', borrowController.returnBook);
+router.put('/return', borrowController.returnBook);
 router.get('/borrowed/:borrowerId', borrowController.getBorrowedBooks);
 router.get('/overdue', borrowController.getOverdueBooks);
 

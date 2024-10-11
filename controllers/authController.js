@@ -4,15 +4,24 @@ const User = require('../models/User');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
+
 exports.register = (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
 
-    User.register({ username, password }, (err, result) => {
-        if (err) return res.status(500).json({ error: err });
+    // Check if the username or email already exists
+    User.findByUsernameOrEmail(username, email, (err, user) => {
+        if (err) return res.status(500).json({ error: 'Database error'+ err });
+        if (user) return res.status(400).json({ error: 'Username or email already exists' });
 
-        res.status(201).json({ message: 'User registered successfully' });
+        // If no user found, proceed to register
+        User.register({ username, password, email }, (err, result) => {
+            if (err) return res.status(500).json({ error: err });
+            
+            res.status(201).json({ message: 'User registered successfully' });
+        });
     });
 };
+
 
 
 exports.login = (req, res) => {
@@ -29,7 +38,7 @@ exports.login = (req, res) => {
 
             // Generate a JWT token
             const token = jwt.sign({ id: user.id, username: user.username }, JWT_SECRET, { expiresIn: '1h' });
-            res.json({ token });
+            res.json({ token ,user });
         });
     });
 };

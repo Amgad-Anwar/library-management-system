@@ -3,36 +3,36 @@ CREATE DATABASE IF NOT EXISTS bosta_library_management_system;
 USE bosta_library_management_system;
 
 CREATE TABLE IF NOT EXISTS users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(50) NOT NULL UNIQUE,
-  password VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL UNIQUE,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS books (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
-  author VARCHAR(255) NOT NULL,
-  isbn VARCHAR(50) NOT NULL,
-  quantity INT NOT NULL,
-  shelf_location VARCHAR(50)
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `title` varchar(255) DEFAULT NULL,
+  `author` varchar(255) DEFAULT NULL,
+  `isbn` varchar(13) DEFAULT NULL,
+  `available_quantity` int(11) DEFAULT NULL,
+  `shelf_location` varchar(255) DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS borrowers (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  registered_date DATE NOT NULL
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `registered_date` date DEFAULT NULL
 );
 
-CREATE TABLE IF NOT EXISTS borrowings (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  borrower_id INT,
-  book_id INT,
-  borrow_date DATE,
-  return_date DATE,
-  due_date DATE,
+CREATE TABLE IF NOT EXISTS borrow_records (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `borrower_id` int(11) DEFAULT NULL,
+  `book_id` int(11) DEFAULT NULL,
+  `borrow_date` date DEFAULT NULL,
+  `due_date` date DEFAULT NULL,
+  `returned` tinyint(1) DEFAULT 0,
   FOREIGN KEY (borrower_id) REFERENCES borrowers(id),
   FOREIGN KEY (book_id) REFERENCES books(id)
 );
