@@ -61,10 +61,10 @@ Step 5: Testing the API
 
     Borrowing Process API:
 
-        POST /api/borrowers/:id/borrowings - Borrow a book
-        PUT /api/borrowers/:id/borrowings/return - Return a book
-        GET /api/borrowers/:id/borrowings - List borrowed books by a borrower
-        GET /api/borrowings/overdue - List overdue books
+        POST /api/borrow - Borrow a book
+        PUT /api/borrow/return - Return a book
+        GET /api/borrow/borrowed/:id - List borrowed books by a borrower
+        GET /api/borrow/overdue - List overdue books
 
     Authentication API:
 
